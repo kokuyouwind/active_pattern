@@ -1,8 +1,8 @@
 # ActivePattern
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/active_pattern`. To experiment with that code, run `bin/console` for an interactive prompt.
+[![CircleCI](https://circleci.com/gh/kokuyouwind/active_pattern.svg?style=svg)](https://circleci.com/gh/kokuyouwind/active_pattern)
 
-TODO: Delete this and the text above, and describe your gem
+F# like ActivePattern in ruby pattern matching
 
 ## Installation
 
@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+WIP
 
 ## Development
 
@@ -32,7 +32,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/active_pattern.
+Bug reports and pull requests are welcome on GitHub at https://github.com/kokuyouwind/active_pattern.
 
 
 ## License
