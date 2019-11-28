@@ -10,7 +10,7 @@ module ActivePattern
 
       match_result = other.instance_eval(&@pattern)
       case match_result
-      in Array
+      in Array | Hash
         $_ACTIVE_PATTERN_MATCHES = match_result
         true
       else

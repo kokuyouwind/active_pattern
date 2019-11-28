@@ -29,4 +29,19 @@ RSpec.describe ActivePattern::PatternObject do
       expect($_ACTIVE_PATTERN_MATCHES).to be_nil
     end
   end
+
+  describe 'hash pattern' do
+    subject { described_class.new(Array, Proc.new { { size: size } }) }
+    after { $_ACTIVE_PATTERN_MATCHES = nil }
+
+    it 'set global variable if matched' do
+      is_expected.to be === [1, 2, 3]
+      expect($_ACTIVE_PATTERN_MATCHES).to eq({size: 3})
+    end
+
+    it 'not set global variable if not matched' do
+      is_expected.not_to be === 'ab'
+      expect($_ACTIVE_PATTERN_MATCHES).to be_nil
+    end
+  end
 end

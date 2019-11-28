@@ -27,9 +27,14 @@ RSpec.describe ActivePattern::Context do
     end
   end
 
+  Point = Struct.new(:x, :y) do
+    def deconstruct_keys(_keys)
+      { x: x, y: y }
+    end
+  end
+
   describe 'array pattern' do
-    Point = Struct.new(:x, :y)
-    module Coordinates
+    module CoordinatesA
       extend ActivePattern::Context[Point]
       Cartesian = pattern { [x, y] }
       Polar = pattern { [Math.sqrt(x ** 2 + y ** 2), Math.atan2(x, y)] }
@@ -37,14 +42,14 @@ RSpec.describe ActivePattern::Context do
 
     it 'deconstruct by matched pattern' do
       case Point.new(1, 1)
-      in Coordinates::Cartesian[x, y]
+      in CoordinatesA::Cartesian[x, y]
         expect(x).to eq(1)
         expect(y).to eq(1)
       else; fail
       end
 
       case Point.new(1, 1)
-      in Coordinates::Polar[r, theta]
+      in CoordinatesA::Polar[r, theta]
         expect(r).to eq(Math.sqrt(2))
         expect(theta).to eq(Math::PI / 4)
       else; fail
@@ -54,6 +59,39 @@ RSpec.describe ActivePattern::Context do
     it 'can deconstruct by original' do
       case Point.new(1, 1)
       in [x, y]
+        expect(x).to eq(1)
+        expect(y).to eq(1)
+      else; fail
+      end
+    end
+  end
+
+  describe 'hash pattern' do
+    module CoordinatesH
+      extend ActivePattern::Context[Point]
+      Cartesian = pattern { { x: x, y: x } }
+      Polar = pattern { { r: Math.sqrt(x ** 2 + y ** 2), degree: Math.atan2(x, y) } }
+    end
+
+    it 'deconstruct by matched pattern' do
+      case Point.new(1, 1)
+      in CoordinatesH::Cartesian(x: x, y: y)
+        expect(x).to eq(1)
+        expect(y).to eq(1)
+      else; fail
+      end
+
+      case Point.new(1, 1)
+      in CoordinatesH::Polar(r: r, degree: theta)
+        expect(r).to eq(Math.sqrt(2))
+        expect(theta).to eq(Math::PI / 4)
+      else; fail
+      end
+    end
+
+    it 'can deconstruct by original' do
+      case Point.new(1, 1)
+      in { x: x, y: y }
         expect(x).to eq(1)
         expect(y).to eq(1)
       else; fail
