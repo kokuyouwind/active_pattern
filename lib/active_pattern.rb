@@ -1,3 +1,4 @@
+require 'active_pattern/context'
 require 'active_pattern/version'
 
 module ActivePattern
