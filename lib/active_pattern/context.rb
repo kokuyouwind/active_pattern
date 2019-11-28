@@ -5,15 +5,7 @@ module ActivePattern
         @@context_class = context_class
 
         def pattern(&pattern_proc)
-          Module.new do
-            @pattern_proc = pattern_proc
-            @context_class = @@context_class
-
-            def self.===(other)
-              return false unless @context_class === other
-              other.instance_eval(&@pattern_proc)
-            end
-          end
+          PatternObject.new(@@context_class, pattern_proc)
         end
       end
     end

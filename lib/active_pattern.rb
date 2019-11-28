@@ -1,4 +1,5 @@
 require 'active_pattern/context'
+require 'active_pattern/pattern_object'
 require 'active_pattern/version'
 
 module ActivePattern
@@ -7,13 +8,7 @@ module ActivePattern
       @context_class = context_class
 
       def self.pattern(&pattern_proc)
-        @pattern_proc = pattern_proc
-        self
-      end
-
-      def self.===(other)
-        return false unless @context_class === other
-        other.instance_eval(&@pattern_proc)
+        PatternObject.new(@context_class, pattern_proc)
       end
     end
   end
