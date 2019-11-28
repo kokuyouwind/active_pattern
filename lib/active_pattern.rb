@@ -1,4 +1,5 @@
 require 'active_pattern/context'
+require 'active_pattern/comparator'
 require 'active_pattern/pattern_object'
 require 'active_pattern/version'
 
