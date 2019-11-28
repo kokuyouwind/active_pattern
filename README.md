@@ -22,7 +22,29 @@ Or install it yourself as:
 
 ## Usage
 
-WIP
+```ruby
+module FZPattern
+  extend ActivePattern::Context[Integer]
+  FizzBuzz = pattern { self % 15 == 0 }
+  Fizz     = pattern { self %  3 == 0 }
+  Buzz     = pattern { self %  5 == 0 }
+  Number   = pattern { [self] }
+end
+
+def fizzbuzz(n)
+  case n
+  in FZPattern::FizzBuzz;   :FizzBuzz
+  in FZPattern::Fizz;       :Fizz
+  in FZPattern::Buzz;       :Buzz
+  in FZPattern::Number[n];  n
+  end
+end
+
+fizzbuzz(1) # => 1
+fizzbuzz(3) # => :Fizz
+fizzbuzz(5) # => :Buzz
+fizzbuzz(15) # => :FizzBuzz
+```
 
 ## Development
 
