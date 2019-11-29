@@ -1,6 +1,7 @@
 # ActivePattern
 
 [![CircleCI](https://circleci.com/gh/kokuyouwind/active_pattern.svg?style=svg)](https://circleci.com/gh/kokuyouwind/active_pattern)
+[![Gem Version](https://badge.fury.io/rb/active_pattern.svg)](https://badge.fury.io/rb/active_pattern)
 
 F# like ActivePattern in ruby pattern matching
 
