@@ -1,6 +1,6 @@
 # ChangeLog
 
-## Unreleased
+## 1.1.0
 ### Added
  - Pattern Matching in pattern proc
 
