@@ -98,4 +98,35 @@ RSpec.describe ActivePattern::Context do
       end
     end
   end
+
+  describe 'inline pattern matching' do
+    module Response
+      extend ActivePattern::Context[Hash]
+      OK = pattern { self in { status: :ok, body: body }; [body] }
+      NG = pattern { self in { status: :ng, message: message }; [message] }
+    end
+
+    it 'does not match with empty hash' do
+      case {}
+      in Response::OK[_]; fail
+      in Response::NG[_]; fail
+      else; true
+      end
+    end
+
+    it 'match with ok and ng response hash' do
+      case { status: :ok, body: 'body' }
+      in Response::OK[body]
+        expect(body).to eq('body')
+      else; fail
+      end
+
+      case { status: :ng, message: 'message' }
+      in Response::OK[_]; fail
+      in Response::NG[message]
+        expect(message).to eq('message')
+      else; fail
+      end
+    end
+  end
 end
