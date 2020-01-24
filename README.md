@@ -47,6 +47,28 @@ fizzbuzz(5) # => :Buzz
 fizzbuzz(15) # => :FizzBuzz
 ```
 
+You can use normal pattern matching in `pattern` method.
+
+```ruby
+module Response
+  extend ActivePattern::Context[Hash]
+  OK = pattern { self in { status: :ok, body: body }; [body] }
+  NG = pattern { self in { status: :ng, message: message }; [message] }
+end
+
+def print_response(response)
+  case response
+  in OK[body]; puts body
+  in NG[message]; puts message
+  else; puts 'no match'
+  end
+end
+
+print_response(status: :ok, body: 'Wow!') # => Wow!
+print_response(status: :ng, message: 'Oops!') #=> Oops!
+print_response(status: :unknown) #=> no match
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

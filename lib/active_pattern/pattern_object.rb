@@ -17,6 +17,8 @@ module ActivePattern
         $_ACTIVE_PATTERN_MATCHES = nil
         match_result
       end
+    rescue NoMatchingPatternError
+      false
     end
   end
 end
